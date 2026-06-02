@@ -1,0 +1,6 @@
+CREATE DATABASE catalogue_db;
+CREATE DATABASE payment_db;
+CREATE DATABASE cart_db;
+GRANT ALL PRIVILEGES ON DATABASE catalogue_db TO ecommerce;
+GRANT ALL PRIVILEGES ON DATABASE payment_db TO ecommerce;
+GRANT ALL PRIVILEGES ON DATABASE cart_db TO ecommerce;

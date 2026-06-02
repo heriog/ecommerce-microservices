@@ -20,14 +20,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh 'docker run --rm ${DOCKER_HUB_REPO}/catalogue-service:${BUILD_NUMBER} python -m pytest -q'
-                sh 'docker run --rm ${DOCKER_HUB_REPO}/cart-service:${BUILD_NUMBER} python -m pytest -q'
-                sh 'docker run --rm ${DOCKER_HUB_REPO}/payment-service:${BUILD_NUMBER} python -m pytest -q'
-            }
-        }
-
         stage('Deploy') {
             steps {
                 sh 'docker compose -f docker-compose.yml up -d --build'

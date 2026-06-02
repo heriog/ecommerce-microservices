@@ -1,0 +1,6 @@
+flask==3.0.3
+psycopg2-binary==2.9.9
+gunicorn==21.2.0
+pytest==8.2.0
+flake8==7.0.0
+requests==2.31.0

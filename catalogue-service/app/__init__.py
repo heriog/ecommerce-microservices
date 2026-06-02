@@ -1,0 +1,32 @@
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
+
+from .models import Base
+
+DEFAULT_SQLITE = "sqlite:///./catalogue.db"
+
+def init_db(app):
+    database_url = os.environ.get("DATABASE_URL", DEFAULT_SQLITE)
+    engine = create_engine(database_url, connect_args={"check_same_thread": False} if database_url.startswith("sqlite") else {})
+    SessionLocal = scoped_session(sessionmaker(bind=engine, autoflush=False, autocommit=False))
+    # Create tables if they don't exist
+    Base.metadata.create_all(bind=engine)
+    app.extensions = getattr(app, 'extensions', {})
+    app.extensions['db_engine'] = engine
+    app.extensions['db_session'] = SessionLocal
+
+def get_db_session(app):
+    """Return a SQLAlchemy session from the Flask `app`."""
+    return app.extensions['db_session']()
+
+from flask import Flask
+
+def create_app():
+    app = Flask(__name__)
+    init_db(app)
+
+    from .main import bp as catalogue_bp
+    app.register_blueprint(catalogue_bp, url_prefix='/products')
+
+    return app

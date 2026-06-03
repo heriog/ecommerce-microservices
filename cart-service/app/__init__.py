@@ -20,11 +20,15 @@ def get_db_session(app):
     """Return a SQLAlchemy session from the Flask `app`."""
     return app.extensions['db_session']()
 
-from flask import Flask
+from flask import Flask, jsonify
 
 def create_app():
     app = Flask(__name__)
     init_db(app)
+
+    @app.route('/health', methods=['GET'])
+    def health():
+        return jsonify({'status': 'healthy'}), 200
 
     from .main import bp as cart_bp
     app.register_blueprint(cart_bp, url_prefix='/carts')

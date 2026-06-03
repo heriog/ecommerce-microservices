@@ -22,7 +22,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'docker compose -f docker-compose.yml up -d --build'
+                dir('/var/jenkins_home/workspace/ecommerce-pipeline') {
+                    sh 'docker compose up -d --build'
+                }
             }
         }
     }

@@ -22,8 +22,6 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: recursive
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -56,8 +54,6 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: recursive
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -90,8 +86,6 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: recursive
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
